@@ -1,0 +1,58 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Routes")
+    body
+        include ../common/navbar.pug
+        +navbar()
+        .container
+            .row.align-items-center
+                .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+                    p Enter the name of the Route:
+                    p
+                        input(type='text', name='route_name', id='route_name', value='')
+                    p Enter the temperature of the Route:
+                    p
+                        input(type='text', name='route_temperature', id='route_temperature' value='')
+                    p Enter the humidity of the Route:
+                    p
+                        input(type='text', name='route_humidity', id='route_humidity' value='')
+                    p
+                        button(onclick=`createRoute($('#route_name').val(), $('#route_temperature').val(), $('#route_humidity').val())`).btn.btn-primary Create
+        .container
+            .row.align-items-center
+                .col-md-3.order-md-1.text-center.text-md-left.pr-md-5
+                    h1 Routes
+                        table.table
+                            thead
+                                tr
+                                    th(scope="col") Name
+                                    th(scope="col") Temperature
+                                    th(scope="col") humidity
+                                    th(scope="col") Details
+                                    th(scope="col") View
+                                    th(scope="col") Delete
+                                    th(scope="col") Status
+                                tr
+                            tbody(id="table_routing")
+                                for route in routes
+                                    tr(id=route.id)
+                                        td
+                                            span #{route.name}
+                                        td
+                                            span #{route.temperature}
+                                        td
+                                            span #{route.humidity}
+                                        td
+                                            a(href="/route/" + route.id) Details
+                                        td
+                                            a(href="/view/" + route.id) View
+                                        td
+                                            button(onclick=`deleteRoute('${route.id}')`).btn.btn-primary Delete
+                                        td
+                                            a(href="/status/" + route.id) OK
+
+
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/routes.js')

@@ -1,0 +1,50 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Points")
+    body
+        include ../common/navbar.pug
+        +navbar()
+        .container
+            .row.align-items-center
+                .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+                    p   Enter the coordinate x of the Point:
+                        input(type='text', name='point_coordinate_x', id='point_coordinate_x' value='')
+                    p Enter the coordinate y of the Route:
+                    p
+                        input(type='text', name='point_coordinate_y', id='point_coordinate_y' value='')
+                    p
+                        input(type="date" data-date-inline-picker="true")
+                    p
+                        button(onclick=`createPoint($('#point_coordinate_x').val(), $('#point_coordinate_y').val())`).btn.btn-primary Create
+        .container
+            .row.align-items-center
+                .col-md-3.order-md-1.text-center.text-md-left.pr-md-5
+                    h1 Points
+                        table.table
+                            thead
+                                tr
+                                    th(scope="col") Coordinate x
+                                    th(scope="col") Coordinate y
+                                    th(scope="col") Date
+                                    th(scope="col") Status
+                                    th(scope="col") Delete
+                                tr
+                            tbody(id="table_routing")
+                                for point in points
+                                    tr(id=point.id)
+                                        td
+                                            span #{point.coordinate_x}
+                                        td
+                                            span #{point.coordinate_y}
+                                        td
+                                            span #{point.reachedAt}
+                                        td
+                                            | OK
+                                        td
+                                            button(onclick=`deletePoint('${point.id}')`).btn.btn-primary Delete
+
+
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/routes.js')
