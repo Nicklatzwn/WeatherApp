@@ -23,4 +23,6 @@ router.get('/route/:route_id', routing.show_points_route);
 
 router.post('/createRouteJSON', routing.submit_route_json);
 
+router.post('/createPointJSON', routing.submit_point_json);
+
 module.exports = router;

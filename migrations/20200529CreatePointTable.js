@@ -28,9 +28,14 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             },
-            routerId: {
+            status : {
                 allowNull: true,
                 type: Sequelize.INTEGER
+            },
+            routerId: {
+                allowNull: true,
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4
             },
         })
     },

@@ -28,8 +28,8 @@ exports.show_points_route = function(req, res, next) {
         where: {
             routerId: req.params.route_id
         }
-    }).then(route => {
-        res.render('point/points', {route : route});
+    }).then(points => {
+        res.render('point/points', {points : points});
     })
 }
 
@@ -50,6 +50,17 @@ exports.submit_route_json = function(req, res, next) {
         temperature: req.body.temperature,
         humidity: req.body.humidity
     }).then(route => {
-        res.send({ route : route});
+        res.send({route: route});
+    })
+}
+
+exports.submit_point_json = function(req, res, next) {
+    console.log(req.body);
+    return models.Point.create({
+        coordinate_x: req.body.point_coordinate_x,
+        coordinate_y: req.body.point_coordinate_y,
+        reachedAt: req.body.date_point
+    }).then(point => {
+        res.send({ point : point});
     })
 }

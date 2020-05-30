@@ -30,7 +30,8 @@ module.exports = {
             },
             userId: {
                 allowNull: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4
             },
         })
     },

@@ -8,20 +8,21 @@ html(lang='en')
         .container
             .row.align-items-center
                 .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-                    p   Enter the coordinate x of the Point:
-                        input(type='text', name='point_coordinate_x', id='point_coordinate_x' value='')
-                    p Enter the coordinate y of the Route:
+                    p Enter the coordinate x of the Point:
                     p
-                        input(type='text', name='point_coordinate_y', id='point_coordinate_y' value='')
+                        input(type='text', name='point_coordinate_x', id='point_coordinate_x', value='')
+                    p Enter the coordinate y of the Point:
                     p
-                        input(type="date" data-date-inline-picker="true")
+                        input(type='text', name='point_coordinate_y', id='point_coordinate_y', value='')
+                    p Enter the Date of the Point:
                     p
-                        button(onclick=`createPoint($('#point_coordinate_x').val(), $('#point_coordinate_y').val())`).btn.btn-primary Create
+                        input(type="date",name='date_point', id='date_point', data-date-inline-picker="true",)
+                    p
+                        button(onclick=`createPoint($('#point_coordinate_x').val(),$('#point_coordinate_y').val(), $('#date_point').val())`).btn.btn-primary Create Point
         .container
             .row.align-items-center
-                .col-md-3.order-md-1.text-center.text-md-left.pr-md-5
                     h1 Points
-                        table.table
+                        table.table(id="table_pointing")
                             thead
                                 tr
                                     th(scope="col") Coordinate x
@@ -34,17 +35,17 @@ html(lang='en')
                                 for point in points
                                     tr(id=point.id)
                                         td
-                                            span #{point.coordinate_x}
+                                                span #{point.coordinate_x}
                                         td
-                                            span #{point.coordinate_y}
+                                                span #{point.coordinate_y}
                                         td
-                                            span #{point.reachedAt}
+                                                span #{point.reachedAt}
                                         td
-                                            | OK
+                                                |OK
                                         td
-                                            button(onclick=`deletePoint('${point.id}')`).btn.btn-primary Delete
+                                                button(onclick=`deletePoint('${point.id}')`).btn.btn-primary Delete
 
 
         include ../common/footer.pug
         +footer()
-        script(src='/javascripts/routes.js')
+        script(src='/javascripts/points.js')
