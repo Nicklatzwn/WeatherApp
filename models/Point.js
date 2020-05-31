@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING,
         },
+        clockAt : {
+            allowNull: true,
+            type: DataTypes.TIME
+        },
         reachedAt : {
             allowNull: false,
             type: DataTypes.DATE
@@ -25,13 +29,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: DataTypes.INTEGER
         },
-        routerId: {
+        RoutertripId: {
             allowNull: true,
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4
+            defaultValue: DataTypes.UUIDV4,
         },
 
     });
+
+    Point.associate = function(models) {
+        // Route belongsTo User
+        Point.belongsTo(models.Routertrip, { foreignKey: 'RoutertripId', onDelete: 'CASCADE' });
+    };
 
     return Point;
 };

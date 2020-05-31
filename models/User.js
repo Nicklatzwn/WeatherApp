@@ -36,5 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    User.associate = function (models) {
+        //User has many routes
+        User.hasMany(models.Routertrip);
+    };
+
     return User;
 }

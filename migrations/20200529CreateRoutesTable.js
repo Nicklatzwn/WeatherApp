@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Routes', {
+        return queryInterface.createTable('Routertrips', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -28,14 +28,15 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.INTEGER
             },
-            userId: {
+            UserId: {
                 allowNull: true,
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4
+                defaultValue: Sequelize.UUIDV4,
+                references: { model: 'Users', key: 'id' }
             },
         })
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Routes');
+        return queryInterface.dropTable('Routertrips');
     }
 };

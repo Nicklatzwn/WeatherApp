@@ -2,6 +2,23 @@ doctype html
 html(lang='en')
     include ../common/head.pug
     +head("Sign up to Starter MVP")
+    style.
+        body {
+            padding: 0 0em;
+            font-family: Arial, sans-serif;
+            color: #024457;
+            background: #88a2b8;
+        }
+
+        h1 {
+            font-family: Verdana;
+            font-weight: lighter;
+            color: #024457;
+        }
+
+        h1 span {
+            color: #167F92;
+        }
     body
         header
             include ../common/navbar.pug

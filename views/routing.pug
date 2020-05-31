@@ -2,6 +2,23 @@ doctype html
 html(lang='en')
     include common/head.pug
     +head("Main Page")
+    style.
+        body {
+            padding: 0 0em;
+            font-family: Arial, sans-serif;
+            color: #024457;
+            background: #d0bf80;
+            }
+
+            h1 {
+                font-family: Verdana;
+                font-weight: lighter;
+                color: #024457;
+            }
+
+            h1 span {
+                 color: #167F92;
+            }
     body
         include common/navbar.pug
         +navbar(user)
@@ -11,18 +28,6 @@ html(lang='en')
                     h1.mb-3 Weather Station
                     p.lead This app is created for demonstration
                     p.lead.mb-4 Navigate to the navBar
-                    form(action="/", method="POST")
-                        p Enter the name of the Route:
-                        p
-                            input(type='text', name='route_name', value='')
-                        p Enter the temperature of the Route:
-                        p
-                            input(type='text', name='route_temperature', value='')
-                        p Enter the humidity of the Route:
-                        p
-                            input(type='text', name='route_humidity', value='')
-                        p
-                            button(type="submit").btn.btn-primary Create Route
         include common/footer.pug
         +footer()
         script(src='/javascripts/routes.js')

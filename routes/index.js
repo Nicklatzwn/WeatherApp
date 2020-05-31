@@ -15,14 +15,18 @@ router.post('/logout', user.logout);
 
 router.get('/', routing.get_routing);
 
-router.post('/', routing.submit_route);
+router.post('/', isLoggedIn, routing.submit_route);
 
-router.get('/routes', routing.show_routes);
+router.get('/routes', isLoggedIn, routing.show_routes);
 
-router.get('/route/:route_id', routing.show_points_route);
+router.get('/route/:route_id/:route_name?',isLoggedIn, routing.show_points_route);
 
-router.post('/createRouteJSON', routing.submit_route_json);
+router.post('/createRouteJSON',isLoggedIn, routing.submit_route_json);
 
-router.post('/createPointJSON', routing.submit_point_json);
+router.post('/route/:route_id/delete-json',isLoggedIn, routing.delete_route_json);
+
+router.post('/createPointJSON/',isLoggedIn, routing.submit_point_json);
+
+router.post('/point/:point_id/delete-json',isLoggedIn, routing.delete_point_json);
 
 module.exports = router;

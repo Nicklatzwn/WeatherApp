@@ -2,39 +2,136 @@ doctype html
 html(lang='en')
     include ../common/head.pug
     +head("Routes")
-    body
-        include ../common/navbar.pug
-        +navbar()
-        .container
-            .row.align-items-center
-                .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-                    p Enter the name of the Route:
-                    p
-                        input(type='text', name='route_name', id='route_name', value='')
-                    p Enter the temperature of the Route:
-                    p
-                        input(type='text', name='route_temperature', id='route_temperature', value='')
-                    p Enter the humidity of the Route:
-                    p
-                        input(type='text', name='route_humidity', id='route_humidity', value='')
-                    p
-                        button(onclick=`createRoute($('#route_name').val(), $('#route_temperature').val(), $('#route_humidity').val())`).btn.btn-primary Create
+    style.
+        .responstable {
+            margin: 1em 0;
+            width: 25%;
+            overflow: hidden;
+            background: #FFF;
+            color: #024457;
+            border-radius: 10px;
+            border: 1px solid #167F92;
+        }
+        .responstable tr {
+            border: 1px solid #D9E4E6;
+        }
+        .responstable tr:nth-child(odd) {
+            background-color: #EAF3F3;
+        }
+        .responstable th {
+            display: none;
+            border: 1px solid #FFF;
+            background-color: #167F92;
+            color: #FFF;
+            padding: 1em;
+        }
+        .responstable th:first-child {
+            display: table-cell;
+            text-align: left;
+        }
+        .responstable th:nth-child(2) {
+            display: table-cell;
+        }
+        .responstable th:nth-child(2) span {
+            display: none;
+        }
+        .responstable th:nth-child(2):after {
+            content: attr(data-th);
+        }
+        @media (min-width: 150px) {
+            .responstable th:nth-child(2) span {
+                display: block;
+        }
+            .responstable th:nth-child(2):after {
+                display: none;
+        }
+        }
+        .responstable td {
+            display: block;
+            word-wrap: break-word;
+            max-width: 7em;
+            font-size: x-large;
+        }
+        .responstable td:first-child {
+            display: table-cell;
+            text-align: left;
+            border-right: 1px solid #D9E4E6;
+            font-size: x-large;
+        }
+        @media (min-width: 150px) {
+            .responstable td {
+                border: 1px solid #D9E4E6;
+                font-size: x-large;
+        }
+        }
+        .responstable th, .responstable td {
+            text-align: left;
+            margin: .5em 1em;
+            font-size: x-large;
+
+        }
+        @media (min-width: 150px) {
+            .responstable th, .responstable td {
+                display: table-cell;
+                padding: 1em;
+                font-size: x-large;
+        }
+        }
+
+
+        body {
+            padding: 0 0em;
+            font-family: Arial, sans-serif;
+            color: #024457;
+            background: #cb8b8b;
+        }
+
+        h1 {
+            font-family: Verdana;
+            font-weight: normal;
+            color: #024457;
+        }
+
+        h1 span {
+            color: #167F92;
+        }
+
+body
+    include ../common/navbar.pug
+    +navbar(user)
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-5.m-b-2 Create a Route for ship Cargo
+                form()
+                    div.form-group
+                        label(for='route_name') Enter the name of the Route:
+                        input.form-control(id='route_name',type='text', placeholder='Route Name' name='route_name')
+                    div.form-group
+                        label(for='route_temperature') Enter the temperature of the Route::
+                        input.form-control(id='route_temperature', type='text', placeholder='Temperature Route' name='route_temperature')
+                    div.form-group
+                        label(for='route_humidity') Enter the Humidity of the Route:
+                        input.form-control(id='route_humidity', type='text', placeholder='Humidity Route' name='route_humidity')
+                    button(onclick=`createRoute($('#route_name').val(), $('#route_temperature').val(), $('#route_humidity').val())`).btn.btn-primary Create Route
+    br
+    if(routes.length)
         .container
             .row.align-items-center
                 .col-md-3.order-md-1.text-center.text-md-left.pr-md-5
                     h1 Routes
-                        table.table
+                        table.responstable
                             thead
                                 tr
                                     th(scope="col") Name
                                     th(scope="col") Temperature
-                                    th(scope="col") humidity
-                                    th(scope="col") Details
-                                    th(scope="col") View
+                                    th(scope="col") Humidity
+                                    th(scope="col") Edit
+                                    th(scope="col") Map
                                     th(scope="col") Delete
                                     th(scope="col") Status
                                 tr
-                            tbody(id="table_routing")
+                            tbody
                                 for route in routes
                                     tr(id=route.id)
                                         td
@@ -44,15 +141,15 @@ html(lang='en')
                                         td
                                             span #{route.humidity}
                                         td
-                                            a(href="/route/" + route.id) Details
+                                            a(href="/route/" + route.id + "/"+ route.name) Details
                                         td
                                             a(href="/view/" + route.id) View
                                         td
                                             button(onclick=`deleteRoute('${route.id}')`).btn.btn-primary Delete
                                         td
-                                            a(href="/status/" + route.id) OK
+                                            | SAFE
 
 
-        include ../common/footer.pug
-        +footer()
-        script(src='/javascripts/routes.js')
+    include ../common/footer.pug
+    +footer()
+    script(src='/javascripts/routes.js')

@@ -2,36 +2,150 @@ doctype html
 html(lang='en')
     include ../common/head.pug
     +head("Points")
+    style.
+        .responstable {
+            margin: 1em 0;
+            width: 25%;
+            overflow: hidden;
+            background: #FFF;
+            color: #024457;
+            border-radius: 10px;
+            border: 1px solid #167F92;
+        }
+
+        .responstable tr {
+            border: 1px solid #D9E4E6;
+        }
+
+        .responstable tr:nth-child(odd) {
+            background-color: #EAF3F3;
+        }
+
+        .responstable th {
+            display: none;
+            border: 1px solid #FFF;
+            background-color: #167F92;
+            color: #FFF;
+            padding: 1em;
+        }
+
+        .responstable th:first-child {
+            display: table-cell;
+            text-align: left;
+        }
+
+        .responstable th:nth-child(2) {
+            display: table-cell;
+        }
+
+        .responstable th:nth-child(2) span {
+            display: none;
+        }
+
+        .responstable th:nth-child(2):after {
+            content: attr(data-th);
+        }
+
+        @media (min-width: 150px) {
+            .responstable th:nth-child(2) span {
+                display: block;
+            }
+
+            .responstable th:nth-child(2):after {
+                display: none;
+            }
+        }
+
+        .responstable td {
+            display: block;
+            word-wrap: break-word;
+            font-size: x-large;
+        }
+
+        .responstable td:first-child {
+            display: table-cell;
+            text-align: left;
+            border-right: 1px solid #D9E4E6;
+            font-size: x-large;
+        }
+
+        @media (min-width: 150px) {
+            .responstable td {
+                border: 1px solid #D9E4E6;
+                font-size: x-large;
+            }
+        }
+
+        .responstable th, .responstable td {
+            text-align: left;
+            margin: .5em 1em;
+            font-size: x-large;
+
+        }
+
+        @media (min-width: 150px) {
+            .responstable th, .responstable td {
+                display: table-cell;
+                padding: 1em;
+                font-size: x-large;
+            }
+        }
+
+
+        body {
+            padding: 0 0em;
+            font-family: Arial, sans-serif;
+            color: #024457;
+            background: #cb8b8b;
+        }
+
+        h1 {
+            font-family: Verdana;
+            font-weight: normal;
+            color: #024457;
+        }
+
+        h1 span {
+            color: #167F92;
+        }
+
     body
         include ../common/navbar.pug
-        +navbar()
-        .container
-            .row.align-items-center
-                .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-                    p Enter the coordinate x of the Point:
-                    p
-                        input(type='text', name='point_coordinate_x', id='point_coordinate_x', value='')
-                    p Enter the coordinate y of the Point:
-                    p
-                        input(type='text', name='point_coordinate_y', id='point_coordinate_y', value='')
-                    p Enter the Date of the Point:
-                    p
-                        input(type="date",name='date_point', id='date_point', data-date-inline-picker="true",)
-                    p
-                        button(onclick=`createPoint($('#point_coordinate_x').val(),$('#point_coordinate_y').val(), $('#date_point').val())`).btn.btn-primary Create Point
-        .container
-            .row.align-items-center
+        +navbar(user)
+        .main.container
+            .row
+                .col-md-6.col-md-offset-3
+                    h1.display-5.m-b-2 Create a Point for Route #{name_route}
+                    form()
+                        div.form-group
+                            label(for='point_coordinate_x') Enter the coordinate x of the Point:
+                            input.form-control(id='point_coordinate_x',type='text', placeholder='Coordinate x' name='point_coordinate_x')
+                        div.form-group
+                            label(for='point_coordinate_y') Enter the coordinate y of the Point:
+                            input.form-control(id='point_coordinate_y', type='text', placeholder='Coordinate y' name='point_coordinate_y')
+                        div.form-group
+                            label(for='date_point') Enter the Date for the Point:
+                            input.form-control(type="date",name='date_point', id='date_point', data-date-inline-picker="true")
+                        div.form-group
+                            label(for='clock_point') Enter the Time for the Point:
+                            input.form-control(type='time' value='13:00' step='900', id='clock_point')
+                        button(onclick=`createPoint($('#point_coordinate_x').val(),$('#point_coordinate_y').val(), $('#clock_point').val(), $('#date_point').val(), '${route_id}')`).btn.btn-primary Create Point
+            br
+            if(points.length)
+                .container
+                .row.align-items-center
                     h1 Points
-                        table.table(id="table_pointing")
+                        table.responstable
                             thead
                                 tr
-                                    th(scope="col") Coordinate x
-                                    th(scope="col") Coordinate y
+                                    th(scope="col") Point_x
+                                    th(scope="col") Point_y
                                     th(scope="col") Date
-                                    th(scope="col") Status
+                                    th(scope="col") Clock
                                     th(scope="col") Delete
+                                    th(scope="col") Status
                                 tr
-                            tbody(id="table_routing")
+                            tbody
                                 for point in points
                                     tr(id=point.id)
                                         td
@@ -39,11 +153,13 @@ html(lang='en')
                                         td
                                                 span #{point.coordinate_y}
                                         td
-                                                span #{point.reachedAt}
+                                                span #{point.reachedAt.getDate()}/#{point.reachedAt.getMonth()}/#{point.reachedAt.getFullYear()}
                                         td
-                                                |OK
+                                                span #{point.clockAt}
                                         td
                                                 button(onclick=`deletePoint('${point.id}')`).btn.btn-primary Delete
+                                        td
+                                                | SAFE
 
 
         include ../common/footer.pug

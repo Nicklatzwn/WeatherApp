@@ -28,14 +28,20 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             },
+            clockAt : {
+                allowNull: true,
+                type: Sequelize.TIME
+            },
             status : {
                 allowNull: true,
                 type: Sequelize.INTEGER
             },
-            routerId: {
-                allowNull: true,
+            RoutertripId: {
+                allowNull: false,
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4
+                defaultValue: Sequelize.UUIDV4,
+                onDelete: 'CASCADE',
+                references: { model: 'Routertrips', key: 'id' }
             },
         })
     },

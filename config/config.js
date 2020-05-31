@@ -5,7 +5,7 @@ module.exports = {
     "database": "weather_master",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": 1,
+    "operatorsAliases": false,
     "port" : 5432
   },
   "test": {
@@ -14,7 +14,7 @@ module.exports = {
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": 1
+    "operatorsAliases": false
   },
   "production": {
     "username": "root",
@@ -22,6 +22,6 @@ module.exports = {
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": 1
+    "operatorsAliases": false
   }
 }

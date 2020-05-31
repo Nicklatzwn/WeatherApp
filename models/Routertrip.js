@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Route = sequelize.define('Route', {
+    var Routertrip = sequelize.define('Routertrip', {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -20,8 +20,20 @@ module.exports = (sequelize, DataTypes) => {
         humidity : {
             allowNull: false,
             type: DataTypes.INTEGER,
+        },
+        UserId: {
+            allowNull: false,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4
         }
     });
 
-    return Route;
+    Routertrip.associate = function(models) {
+        // Routertrip belongsTo User
+        Routertrip.belongsTo(models.User, { foreignKey: 'UserId' });
+        // Routertrip has many Point
+        Routertrip.hasMany(models.Point,  { onDelete: 'CASCADE' , hooks: true});
+    }
+
+    return Routertrip;
 };

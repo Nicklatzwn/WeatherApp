@@ -5,62 +5,76 @@ exports.get_routing= function(req, res, next) {
 }
 
 exports.submit_route = function(req, res, next) {
-    console.log("route name:", req.body.route_name);
-    console.log("route temperature:", req.body.route_temperature);
-    console.log("route humidity:", req.body.route_humidity);
-    return models.Route.create({
+    return models.Routertrip.create({
         name: req.body.route_name,
         temperature: req.body.route_temperature,
-        humidity: req.body.route_humidity
+        humidity: req.body.route_humidity,
+        UserId: req.user.id
     }).then(route => {
         res.redirect("/routes");
     })
 }
 
 exports.show_routes = function(req, res, next) {
-    return models.Route.findAll().then(routes => {
-        res.render('route/routes', { title: 'Express', routes: routes });
+    return models.Routertrip.findAll({
+        where: {
+            UserId: req.user.id
+        }
+    }).then(routes => {
+        res.render('route/routes', { routes: routes, user: req.user });
     })
 }
 
 exports.show_points_route = function(req, res, next) {
     return models.Point.findAll({
         where: {
-            routerId: req.params.route_id
+            RoutertripId: req.params.route_id
         }
     }).then(points => {
-        res.render('point/points', {points : points});
-    })
-}
-
-exports.show_route = function(req, res, next) {
-    return models.Route.findOne({
-        where: {
-            id: req.params.route_id
-        }
-    }).then(route => {
-        res.render('route/route', {route : route});
+        res.render('point/points', {points : points, route_id:req.params.route_id, name_route:req.params.route_name, user: req.user });
     })
 }
 
 exports.submit_route_json = function(req, res, next) {
-    console.log(req.body);
-    return models.Route.create({
+    return models.Routertrip.create({
         name: req.body.name,
         temperature: req.body.temperature,
-        humidity: req.body.humidity
+        humidity: req.body.humidity,
+        UserId: req.user.id
     }).then(route => {
         res.send({route: route});
+    })
+}
+exports.delete_route_json = function(req, res, next) {
+    return models.Routertrip.destroy({
+        where: {
+            id: req.params.route_id
+        }
+    }).then(result => {
+        res.send({ msg: "Success" });
     })
 }
 
 exports.submit_point_json = function(req, res, next) {
     console.log(req.body);
+    console.log(req.params.route_name);
     return models.Point.create({
         coordinate_x: req.body.point_coordinate_x,
         coordinate_y: req.body.point_coordinate_y,
-        reachedAt: req.body.date_point
+        clockAt: req.body.clock_time,
+        reachedAt: req.body.date_point,
+        RoutertripId: req.body.route_id
     }).then(point => {
         res.send({ point : point});
+    })
+}
+
+exports.delete_point_json = function(req, res, next) {
+    return models.Point.destroy({
+        where: {
+            id: req.params.point_id
+        }
+    }).then(result => {
+        res.send({ msg: "Success" });
     })
 }
