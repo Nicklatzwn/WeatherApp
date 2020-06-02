@@ -11,6 +11,15 @@ const validateCreateUserFields = function(errors, req) {
     if(!validator.isLength(req.body.password, {min: 8, max: 25})) {
         errors["password"] = "Password must have a minimum of 8 characters";
     }
+    if(!validator.matches(req.body.firstname, "^[a-zA-Z0-9_\.\-]*$")) {
+        errors["firstname"] = "Please use a valid firstname";
+    }
+    if(!validator.matches(req.body.lastname, "^[a-zA-Z0-9_\.\-]*$")) {
+        errors["lastname"] = "Please use a valid lastname";
+    }
+    if (!validator.isEmail(req.body.email)) {
+        errors["email"] = "Please use a valid email.";
+    }
 }
 
 exports.validateUser = function(errors, req) {

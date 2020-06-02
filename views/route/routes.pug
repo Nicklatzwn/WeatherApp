@@ -77,7 +77,13 @@ html(lang='en')
                 font-size: x-large;
         }
         }
+        #route_temperature {
+            width: 100px;
+        }
 
+        #route_humidity {
+            width: 100px;
+        }
 
         body {
             padding: 0 0em;
@@ -95,7 +101,6 @@ html(lang='en')
         h1 span {
             color: #167F92;
         }
-
 body
     include ../common/navbar.pug
     +navbar(user)
@@ -106,14 +111,15 @@ body
                 form()
                     div.form-group
                         label(for='route_name') Enter the name of the Route:
-                        input.form-control(id='route_name',type='text', placeholder='Route Name' name='route_name')
+                        input.form-control(id='route_name', type='text', placeholder='Route Name' name='route_name' required="required")
                     div.form-group
-                        label(for='route_temperature') Enter the temperature of the Route::
-                        input.form-control(id='route_temperature', type='text', placeholder='Temperature Route' name='route_temperature')
+                        label(for='route_temperature') Enter the temperature of the Route (°C):
+                        input.form-control(id='route_temperature', type='number', placeholder='Temperature Route' name='route_temperature' required="required")
                     div.form-group
-                        label(for='route_humidity') Enter the Humidity of the Route:
-                        input.form-control(id='route_humidity', type='text', placeholder='Humidity Route' name='route_humidity')
+                        label(for='route_humidity') Enter the Humidity of the Route (%):
+                        input.form-control(id='route_humidity', type='number', placeholder='Humidity Route' name='route_humidity' required="required")
                     button(onclick=`createRoute($('#route_name').val(), $('#route_temperature').val(), $('#route_humidity').val())`).btn.btn-primary Create Route
+    br
     br
     if(routes.length)
         .container
@@ -126,10 +132,9 @@ body
                                     th(scope="col") Name
                                     th(scope="col") Temperature
                                     th(scope="col") Humidity
-                                    th(scope="col") Edit
-                                    th(scope="col") Map
-                                    th(scope="col") Delete
+                                    th(scope="col") Edit/View
                                     th(scope="col") Status
+                                    th(scope="col") Delete
                                 tr
                             tbody
                                 for route in routes
@@ -141,14 +146,11 @@ body
                                         td
                                             span #{route.humidity}
                                         td
-                                            a(href="/route/" + route.id + "/"+ route.name) Details
-                                        td
-                                            a(href="/view/" + route.id) View
-                                        td
-                                            button(onclick=`deleteRoute('${route.id}')`).btn.btn-primary Delete
+                                            a(style='color: green;' href="/route/" + route.id + "/"+ route.name) Details
                                         td
                                             | SAFE
-
+                                        td
+                                            button(style='background-color: red;' onclick=`deleteRoute('${route.id}')`).btn.btn-primary Delete
 
     include ../common/footer.pug
     +footer()

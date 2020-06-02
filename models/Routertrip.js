@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         temperature: {
             allowNull: false,
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
         },
         humidity : {
             allowNull: false,
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
         },
         UserId: {
             allowNull: false,

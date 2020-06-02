@@ -21,19 +21,19 @@ module.exports = {
                 type: Sequelize.STRING
             },
             firstname: {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.STRING
             },
             lastname: {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.STRING
             },
             password: {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.STRING
             },
             email: {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.STRING
             },
         })

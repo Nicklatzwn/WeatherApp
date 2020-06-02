@@ -18,19 +18,31 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
         clockAt : {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.TIME
         },
         reachedAt : {
             allowNull: false,
             type: DataTypes.DATE
         },
-        status : {
+        icon: {
             allowNull: true,
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING,
+        },
+        temperature: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
+        humidity: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
+        status : {
+            allowNull: false,
+            type: DataTypes.STRING
         },
         RoutertripId: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
         },

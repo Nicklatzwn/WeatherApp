@@ -2,8 +2,12 @@ mixin head(title)
     head
         meta(charset='utf-8')
         title=title
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
         //[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]
         //<base href="/">
         meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
         meta(name='description', content='')
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous")
+        meta(http-equiv='X-UA-Compatible', content='ie=edge')
+        link(rel='stylesheet', href='https://unpkg.com/leaflet@1.4.0/dist/leaflet.css', integrity='sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==', crossorigin='')
+        script(src='https://unpkg.com/leaflet@1.4.0/dist/leaflet.js', integrity='sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==', crossorigin='')

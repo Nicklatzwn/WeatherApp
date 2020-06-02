@@ -45,12 +45,18 @@ exports.signup = function(req, res, next) {
                 if (user !== null) {
                     newUser = models.User.build({
                         username: req.body.username,
-                        password: generateHash(req.body.password)
+                        password: generateHash(req.body.password),
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        email: req.body.email
                     });
                 } else {
                     newUser = models.User.build({
                         username: req.body.username,
                         password: generateHash(req.body.password),
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        email: req.body.email,
                         is_admin: true
                     });
                 }

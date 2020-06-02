@@ -29,12 +29,24 @@ module.exports = {
                 type: Sequelize.DATE
             },
             clockAt : {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.TIME
             },
-            status : {
+            icon: {
                 allowNull: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.STRING,
+            },
+            temperature: {
+                allowNull: false,
+                type: Sequelize.STRING,
+            },
+            humidity: {
+                allowNull: false,
+                type: Sequelize.STRING,
+            },
+            status : {
+                allowNull: false,
+                type: Sequelize.STRING
             },
             RoutertripId: {
                 allowNull: false,

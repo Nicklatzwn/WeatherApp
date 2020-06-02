@@ -8,7 +8,8 @@ function deletePoint(pointId) {
         success: ((res) => {
             // Replace follow button with unfollow.
             console.log("Result: ", res);
-            $("#"+pointId).remove();
+            location.reload();
+           // $("#"+pointId).remove();
         }),
         error: ((error) => {
             console.log("Error:", error);
@@ -16,21 +17,24 @@ function deletePoint(pointId) {
     });
 }
 
-function createPoint(point_coordinate_x, point_coordinate_y,clock_time, date_point,route_id) {
-    console.log("point_coordinate_x =" + point_coordinate_x);
-    console.log("point_coordinate_y =" + point_coordinate_y);
-    console.log("date_point =" + date_point);
-    console.log("route_id =" + route_id);
+function createPoint(point_coordinate_x, point_coordinate_y,clock_time, date_point,route_id,route_temperature,route_humidity) {
 
     $.ajax({
         url: '/createPointJSON',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: JSON.stringify({point_coordinate_x, point_coordinate_y, clock_time,date_point, route_id}),
+        async: false,
+        data: JSON.stringify({point_coordinate_x, point_coordinate_y, clock_time,date_point, route_id, route_temperature, route_humidity}),
         type: 'POST',
         success: ((res) => {
             // Replace follow button with unfollow.
-            console.log("Result: ", res);
+            console.log("Result by me: ", res);
+            if(res.status === 'OK') {
+                console.log(res.msg);
+            }
+            else {
+                alert(res.msg);
+            }
         }),
         error: ((error) => {
             console.log("Error:", error);

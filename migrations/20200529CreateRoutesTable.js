@@ -22,14 +22,14 @@ module.exports = {
             },
             temperature: {
                 allowNull: false,
-                type: Sequelize.INTEGER
+                type: Sequelize.STRING
             },
             humidity : {
                 allowNull: false,
-                type: Sequelize.INTEGER
+                type: Sequelize.STRING
             },
             UserId: {
-                allowNull: true,
+                allowNull: false,
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
                 references: { model: 'Users', key: 'id' }
