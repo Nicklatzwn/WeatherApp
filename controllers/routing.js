@@ -64,7 +64,7 @@ exports.delete_route_json = function(req, res, next) {
 }
 
 exports.submit_point_json = function(req, res, next) {
-    return getWeather(res, req.body.point_coordinate_x, req.body.point_coordinate_y, req.body.clock_time, req.body.date_point, req.body.route_humidity, req.body.route_temperature).then(result => {
+    return getWeather(res, req).then(result => {
         if(result) {
             return models.Point.create({
                 coordinate_x: req.body.point_coordinate_x,
@@ -90,37 +90,63 @@ exports.delete_point_json = function(req, res, next) {
         where: {
             id: req.params.point_id
         }
-    }).then(result => {
+    }).then(point_destroyed => {
+        if(point_destroyed && req.body.pointStatus === 'DANGER') {
+            decreaseRouteStatus(req.body.routeId);
+        }
         res.send({msg: 'Success'});
     })
 }
 
-async function getWeather(res, coordinate_x, coordinate_y, clockAt, reachedAt, humiditiy, temperature) {
+async function getWeather(res, req) {
     try {
         let api = '445255ae27db754f38ed8a5aca28b02e';
-        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinate_x}&lon=${coordinate_y}&exclude={current,minutely,daily}&appid=${api}`
+        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.point_coordinate_x}&lon=${req.body.point_coordinate_y}&exclude={current,minutely,daily}&appid=${api}`
         // https://openweathermap.org/api/one-call-api
         let response_body = await request(url);
         let weather_json = JSON.parse(response_body);
-        let unixTimestamp = Math.round(new Date(reachedAt + " " + clockAt + "00.000").getTime()/1000);
+        let unixTimestamp = Math.round(new Date(req.body.date_point + " " + req.body.clock_time + "00.000").getTime() / 1000);
         // https://stackoverflow.com/questions/46237707/node-js-converting-date-string-to-unix-timestamp
 
-        let weather_desired_json = weather_json.hourly.filter( hourly => { if(hourly['dt'] === unixTimestamp) return hourly });
-        if(weather_desired_json.length) {
+        let weather_desired_json = weather_json.hourly.filter(hourly => {
+            if (hourly['dt'] === unixTimestamp) return hourly
+        });
+        if (weather_desired_json.length) {
             let status = 'SAFE';
-            if(temperature <  Math.round(weather_desired_json[0].temp - kelvin) || humiditiy < weather_desired_json[0].humidity) status = 'DANGER';
+            if (req.body.temperature < Math.round(weather_desired_json[0].temp - kelvin) || req.body.route_humidity < weather_desired_json[0].humidity) {
+                status = 'DANGER';
+                increaseRouteStatus(req.body.route_id);
+            }
             return {
-                temperature : Math.round(weather_desired_json[0].temp- kelvin),
+                temperature: Math.round(weather_desired_json[0].temp - kelvin),
                 humidity: weather_desired_json[0].humidity,
-                icon : weather_desired_json[0].weather[0].icon,
+                icon: weather_desired_json[0].weather[0].icon,
                 status: status
             };
-        }
-        else {
-            res.send({ status: "error", msg: "No Data Found!" });
+        } else {
+            res.send({status: "error", msg: "No Data Found!"});
         }
     } catch (error) {
         console.log(error);
-        res.send({ status: "error", msg: "Invalid Data" });
+        res.send({status: "error", msg: "Invalid Data"});
     }
+}
+function increaseRouteStatus(route_id) {
+    return models.Routertrip.findOne({
+        where: {
+            id: route_id
+        }
+    }).then(route => {
+        return route.increment('num_dangers');
+    });
+}
+
+function decreaseRouteStatus(route_id) {
+    return models.Routertrip.findOne({
+        where: {
+            id: route_id
+        }
+    }).then(route => {
+        return route.decrement('num_dangers');
+    });
 }

@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING,
         },
+        num_dangers : {
+            allowNull: false,
+            defaultValue: '0',
+            type: DataTypes.INTEGER,
+        },
         UserId: {
             allowNull: false,
             type: DataTypes.UUID,

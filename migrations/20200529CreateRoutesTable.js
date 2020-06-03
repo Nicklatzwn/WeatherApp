@@ -28,6 +28,11 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING
             },
+            num_dangers : {
+                allowNull: false,
+                defaultValue: '0',
+                type: Sequelize.INTEGER,
+            },
             UserId: {
                 allowNull: false,
                 type: Sequelize.UUID,

@@ -180,7 +180,7 @@ html(lang='en')
                                                 else
                                                     span(style='color: red; font-weight: bold;') DANGER
                                         td
-                                            button(style='background-color: red;', onclick=`deletePoint('${point.id}')`).btn.btn-primary Delete
+                                            button(style='background-color: red;', onclick=`deletePoint('${point.id}', '${point.status}', '${route.id}')`).btn.btn-primary Delete
 
         h1.display-5.m-b-2 The Map
         #pointMap

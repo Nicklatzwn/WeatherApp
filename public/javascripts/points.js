@@ -1,9 +1,9 @@
-function deletePoint(pointId) {
+function deletePoint(pointId, pointStatus, routeId) {
     $.ajax({
         url: '/point/' + pointId + '/delete-json',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: JSON.stringify({pointId}),
+        data: JSON.stringify({pointId, pointStatus, routeId}),
         type: 'POST',
         success: ((res) => {
             // Replace follow button with unfollow.

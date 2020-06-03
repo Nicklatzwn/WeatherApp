@@ -120,7 +120,6 @@ body
                         input.form-control(id='route_humidity', type='number', placeholder='Humidity Route' name='route_humidity' required="required")
                     button(onclick=`createRoute($('#route_name').val(), $('#route_temperature').val(), $('#route_humidity').val())`).btn.btn-primary Create Route
     br
-    br
     if(routes.length)
         .container
             .row.align-items-center
@@ -146,9 +145,12 @@ body
                                         td
                                             span #{route.humidity}
                                         td
-                                            a(style='color: green;' href="/route/" + route.id + "/"+ route.name) Details
+                                            a(style='color: orange; font-weight: bold;' href="/route/" + route.id + "/"+ route.name) Details
                                         td
-                                            | SAFE
+                                            if route.num_dangers
+                                                span(style='color: red; font-weight: bold;') DANGER
+                                            else
+                                                span(style='color: green;') SAFE
                                         td
                                             button(style='background-color: red;' onclick=`deleteRoute('${route.id}')`).btn.btn-primary Delete
 
