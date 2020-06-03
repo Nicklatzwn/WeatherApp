@@ -28,6 +28,7 @@ You can confirm the installation by typing node --version in the terminal.
     $ cd weatherapplication
     $ set DEBUG=weatherapplication
     $ run start
-##Browser    
+## Browser  
+
 Open [http://localhost:3000](http://localhost:3000) to view the Web Application in the browser.
 
