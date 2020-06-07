@@ -5,6 +5,23 @@ let controllers = require("../controllers/routing");
 let db = require("../models/index");
 let models = require("../models");
 
+function formatDate() {
+    let today = new Date();
+    let dd = today.getDate()+1;
+
+    let mm = today.getMonth()+1; 
+    let yyyy = today.getFullYear();
+    if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    } 
+    return tomorrow = yyyy + '-' + mm + '-'+ dd;
+    }
 
 //Assertion Style
 const expect = require('chai').expect;
@@ -28,11 +45,12 @@ const RouteLatzonis = {
     //password: faker.internet.password(),
 };
 
+
 const PointLatzonis = {
     coordinate_x: '10',
     coordinate_y: '10',
-    clockAt: '13:00:00',
-    reachedAt: '2020-06-07',
+    clockAt: '18:00:00',
+    reachedAt: formatDate(),
     temperature: '35',
     humidity: '35',
     icon: '03d',
@@ -230,10 +248,12 @@ describe('Controllers API', () => {
             };
 
             controllers.submit_point_json(request, response).then( function () {
+                console.log(PointLatzonis);
+                console.log(request.body);
                 expect(response.data).to.have.property('status', 'OK');
                 expect(response.data).to.have.property('msg', 'Success');
                 done();
-            });
+            }).catch(done);
         });
 
     });
