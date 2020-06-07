@@ -33,9 +33,9 @@ exports.show_points_route = async function(req, res, next) {
             id : req.params.route_id
         }
     });
-    let points = await models.Point.findAll({
+    let points = await models.Routertrip.findOne({
         where : {
-            RoutertripId : req.params.route_id
+            id : req.params.route_id
         }
     });
     res.render('point/points', {map_points : JSON.stringify(points), points: points, route: route, user: req.user });
