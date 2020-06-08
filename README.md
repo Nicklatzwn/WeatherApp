@@ -28,6 +28,9 @@ You can confirm the installation by typing node --version in the terminal.
     $ cd weatherapplication
     $ set DEBUG=weatherapplication
     $ npm run start
+## Browser  
+
+Open [http://localhost:3000](http://localhost:3000) to view the Web Application in the browser.
 ## Testing
     $ cd weatherapplication
     $ npm run test
@@ -37,7 +40,4 @@ You can confirm the installation by typing node --version in the terminal.
     $ docker-compose up -d
     $ docker-compose down # (Shut Down)
 Navigate to the [http://localhost:8000](http://localhost:8000)    
-## Browser  
-
-Open [http://localhost:3000](http://localhost:3000) to view the Web Application in the browser.
 
