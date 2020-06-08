@@ -8,12 +8,29 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
+
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+let retries = 5;
+
+new Promise(function(resolve, reject) {
+  while(retries) {
+    try {
+      if (config.use_env_variable) {
+        sequelize = new Sequelize(process.env[config.use_env_variable], config);
+        break;
+      } else {
+        sequelize = new Sequelize(config.database, config.username, config.password, config);
+        break;
+      }
+    }
+    catch (err) {
+          console.log(err);
+          retries-=1;
+          console.log(`retries left: ${retries}`);
+          new Promise(res => setTimeout(res, 5000));
+    }
+  }
+});
 
 fs
   .readdirSync(__dirname)

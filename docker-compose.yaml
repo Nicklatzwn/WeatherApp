@@ -1,0 +1,26 @@
+version: "3"
+services:
+    web:
+      image: node
+      command: npm start
+      ports:
+         - "8000:4242"
+      # links:
+      #   - db
+      working_dir: /app
+      environment:
+        SEQ_DB: weather_master
+        SEQ_USER: weather_master
+        SEQ_PW: '123.456'
+        PORT: 4242
+        # DATABASE_URL: postgres://username:pgpassword@127.0.0.1:5432/mydatabase
+        DATABASE_URL: "postgres://weather_master:123.456@db:5432/weather_master"
+      volumes:
+          - ./:/app
+    db:
+      image: postgres
+      ports:
+          - "5432:5432"
+      environment:
+        POSTGRES_USER: weather_master
+        POSTGRES_PASSWORD: '123.456'

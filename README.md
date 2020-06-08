@@ -27,10 +27,15 @@ You can confirm the installation by typing node --version in the terminal.
 ## Run Application
     $ cd weatherapplication
     $ set DEBUG=weatherapplication
-    $ npm start
+    $ npm run start
 ## Testing
     $ cd weatherapplication
-    $ npm test
+    $ npm run test
+## Build/Run Docker Image
+    $ cd weatherapplication
+    $ docker build -t weatherapp .
+    $ docker-compose up -d
+    $ docker-compose down (Shut Down)
 ## Browser  
 
 Open [http://localhost:3000](http://localhost:3000) to view the Web Application in the browser.

@@ -1,5 +1,5 @@
 let models = require("../models");
-let bcrypt = require("bcrypt");
+var bcrypt = require('bcryptjs');
 const passport = require('passport');
 const myPassport = require('../passport_setup')(passport);
 let flash = require('connect-flash');
