@@ -39,5 +39,5 @@ Open [http://localhost:3000](http://localhost:3000) to view the Web Application 
     $ docker build -t weatherapp .
     $ docker-compose up -d
     $ docker-compose down # (Shut Down)
-Navigate to the [http://localhost:8000](http://localhost:8000)    
+Navigate to the [http://localhost:8000](http://localhost:8000) to view the Web Application in the browser.    
 
