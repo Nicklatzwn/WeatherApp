@@ -5,12 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let passport = require('passport');
 let session = require('express-session');
+let flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 require('./passport_setup')(passport);
 var app = express();
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

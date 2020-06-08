@@ -7,7 +7,9 @@ const { validateUser} = require('../validators/signup');
 const {isEmpty} = require('lodash');
 
 exports.show_login = function(req, res, next) {
-    res.render('user/login', { formData : {}, errors: {} });
+    message_username = req.flash('message_username');
+    message_password = req.flash('message_password');
+    res.render('user/login', { formData : {}, error: {}, message: { message_username, message_password} });
 }
 
 exports.show_signup = function(req, res, next) {

@@ -35,13 +35,13 @@ module.exports = function(passport) {
                 },
             }).then(user => {
                 if (user == null) {
-                    req.flash('message', 'Incorrect credentials.')
+                    req.flash('message_username', 'Incorrect credentials.')
                     return done(null, false)
                 } else if (user.password == null || user.password == undefined) {
-                    req.flash('message', 'You must reset your password')
+                    req.flash('message_password', 'You must reset your password')
                     return done(null, false)
                 } else if(!validPassword(user, password)) {
-                    req.flash('message', 'Incorrect credentials')
+                    req.flash('message_password', 'Incorrect credentials')
                     return done(null, false)
                 }
                 return done(null, user);
