@@ -34,8 +34,8 @@ You can confirm the installation by typing node --version in the terminal.
 ## Build/Run Docker Image
     $ cd weatherapplication
     $ docker build -t weatherapp .
-    $ docker-compose up -d (Navigate to the [http://localhost:8000](http://localhost:8000) )
-    $ docker-compose down (Shut Down)
+    $ docker-compose up -d # Navigate to the [http://localhost:8000](http://localhost:8000)
+    $ docker-compose down # (Shut Down)
 ## Browser  
 
 Open [http://localhost:3000](http://localhost:3000) to view the Web Application in the browser.
