@@ -1,24 +1,48 @@
 function deletePoint(pointId, pointStatus, routeId) {
-    $.ajax({
-        url: '/point/' + pointId + '/delete-json',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify({pointId, pointStatus, routeId}),
-        type: 'POST',
-        success: ((res) => {
-            // Replace follow button with unfollow.
-            console.log("Result: ", res);
-            location.reload();
-           // $("#"+pointId).remove();
-        }),
-        error: ((error) => {
-            console.log("Error:", error);
-        })
+    var confirmDemo = new gModal({
+        body : "<center><h3><strong>Are you sure you want to continue?</strong></h3></center>",
+        buttons: [
+            {
+                content: "Cancel",
+                classes: "gmodal-button-red",
+                bindKey: false, /* no key! */
+                callback: function (modal) {
+                    console.log("You have said NO!!!!");
+                    modal.hide();
+                }
+            }, {
+                content: "Confirm",
+                classes: "gmodal-button-green",
+                bindKey: false, /* no key! */
+                callback: function (modal) {
+                    modal.hide();
+                    $.ajax({
+                        url: '/point/' + pointId + '/delete-json',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({pointId, pointStatus, routeId}),
+                        type: 'POST',
+                        success: ((res) => {
+                            // Replace follow button with unfollow.
+                            console.log("Result: ", res);
+                            location.reload();
+                            // $("#"+pointId).remove();
+                        }),
+                        error: ((error) => {
+                            console.log("Error:", error);
+                        })
+                    });
+                }
+            }
+        ],
+        close: {
+            closable: false,
+        }
     });
+    confirmDemo.show();
 }
 
 function createPoint(point_coordinate_x, point_coordinate_y,clock_time, date_point,route_id,route_temperature,route_humidity) {
-
     $.ajax({
         url: '/createPointJSON',
         contentType: 'application/json; charset=utf-8',

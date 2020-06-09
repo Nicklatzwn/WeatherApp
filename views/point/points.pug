@@ -113,156 +113,156 @@ html(lang='en')
             height: 720px;
         }
 
-    body
-        include ../common/navbar.pug
-        +navbar(user)
-        .main.container(style="margin-left: 200px;")
-            .row
-                .col-md-6.col-md-offset-3
-                    h1.display-5.m-b-2 Create a Point for Route #{route.name}
-                    form()
-                        div.form-group
-                            p#GFG_UP_X(style='font-size: 15px; font-weight: bold;')
-                            label(for='point_coordinate_x') Enter the coordinate x of the Point:
-                            input.form-control(id='point_coordinate_x', style='width: 200px;', onkeypress='return GFG_X(this, event)', type='text', placeholder='Coordinate x' name='point_coordinate_x' required="required")
-                            p#GFG_DOWN_X(style='font-size: 15px; color: black; ')
-                        div.form-group
-                            p#GFG_UP_Y(style='font-size: 15px; font-weight: bold;')
-                            label(for='point_coordinate_y') Enter the coordinate y of the Point:
-                            input.form-control(id='point_coordinate_y', style='width: 200px;', onkeypress='return GFG_Y(this, event)', type='text', placeholder='Coordinate y' name='point_coordinate_y' required="required")
-                            p#GFG_DOWN_Y(style='font-size: 15px; color: black; ')
-                        div.form-group
-                            label(for='date_point') Enter the Date for the Point:
-                            input.form-control(type="date", style='width: 200px;', name='date_point', id='date_point', data-date-inline-picker="true" required="required")
-                        div.form-group
-                            label(for='clock_point') Enter the Time for the Point:
-                            input.form-control(type='time' style='width: 200px;' value='13:00' step='900', id='clock_point' required="required")
-                        button(onclick=`createPoint($('#point_coordinate_x').val(),$('#point_coordinate_y').val(), $('#clock_point').val(), $('#date_point').val(), '${route.id}', '${route.temperature}', '${route.humidity}')`).btn.btn-primary Create Point
-            br
-            if(points.length)
-                .container
-                .row.align-items-left
-                    h1 Points
-                        table.responstable
-                            thead
-                                tr
-                                    th(scope="col") Point_x
-                                    th(scope="col") Point_y
-                                    th(scope="col") Date
-                                    th(scope="col") Clock
-                                    th(scope="col") Temperature
-                                    th(scope="col") Humidity
-                                    th(scope="col") Weather
-                                    th(scope="col") Status
-                                    th(scope="col") Delete
-                                tr
-                            tbody
-                                for point in points
-                                    tr(id=point.id)
-                                        td
-                                                span #{point.coordinate_x}
-                                        td
-                                                span #{point.coordinate_y}
-                                        td
-                                                span #{point.reachedAt.getDate()}/#{point.reachedAt.getMonth()}/#{point.reachedAt.getFullYear()}
-                                        td
-                                                span #{point.clockAt}
-                                        td
-                                                span #{point.temperature}
-                                        td
-                                                span #{point.humidity}
-                                        td
-                                            figure(class="image")
-                                                img(src=`http://openweathermap.org/img/wn/${point.icon}.png `, alt="Image", width="50", height="50")
-                                        td
-                                                if point.status === 'SAFE'
-                                                    span(style='color: green;') SAFE
-                                                else
-                                                    span(style='color: red; font-weight: bold;') DANGER
-                                        td
-                                            button(style='background-color: red;', onclick=`deletePoint('${point.id}', '${point.status}', '${route.id}')`).btn.btn-primary Delete
+body
+    include ../common/navbar.pug
+    +navbar(user)
+    .main.container(style="margin-left: 200px;")
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-5.m-b-2 Create a Point for Route #{route.name}
+                form()
+                    div.form-group
+                        p#GFG_UP_X(style='font-size: 15px; font-weight: bold;')
+                        label(for='point_coordinate_x') Enter the coordinate x of the Point:
+                        input.form-control(id='point_coordinate_x', style='width: 200px;', onkeypress='return GFG_X(this, event)', type='text', placeholder='Coordinate x' name='point_coordinate_x' required="required")
+                        p#GFG_DOWN_X(style='font-size: 15px; color: black; ')
+                    div.form-group
+                        p#GFG_UP_Y(style='font-size: 15px; font-weight: bold;')
+                        label(for='point_coordinate_y') Enter the coordinate y of the Point:
+                        input.form-control(id='point_coordinate_y', style='width: 200px;', onkeypress='return GFG_Y(this, event)', type='text', placeholder='Coordinate y' name='point_coordinate_y' required="required")
+                        p#GFG_DOWN_Y(style='font-size: 15px; color: black; ')
+                    div.form-group
+                        label(for='date_point') Enter the Date for the Point:
+                        input.form-control(type="date", style='width: 200px;', name='date_point', id='date_point', data-date-inline-picker="true" required="required")
+                    div.form-group
+                        label(for='clock_point') Enter the Time for the Point:
+                        input.form-control(type='time' style='width: 200px;' value='13:00' step='900', id='clock_point' required="required")
+                    button(onclick=`createPoint($('#point_coordinate_x').val(),$('#point_coordinate_y').val(), $('#clock_point').val(), $('#date_point').val(), '${route.id}', '${route.temperature}', '${route.humidity}')`).btn.btn-primary Create Point
+        br
+        if(points.length)
+            .container
+            .row.align-items-left
+                h1 Points
+                    table.responstable
+                        thead
+                            tr
+                                th(scope="col") Point_x
+                                th(scope="col") Point_y
+                                th(scope="col") Date
+                                th(scope="col") Clock
+                                th(scope="col") Temperature
+                                th(scope="col") Humidity
+                                th(scope="col") Weather
+                                th(scope="col") Status
+                                th(scope="col") Delete
+                            tr
+                        tbody
+                            for point in points
+                                tr(id=point.id)
+                                    td
+                                            span #{point.coordinate_x}
+                                    td
+                                            span #{point.coordinate_y}
+                                    td
+                                            span #{point.reachedAt.getDate()}/#{point.reachedAt.getMonth()}/#{point.reachedAt.getFullYear()}
+                                    td
+                                            span #{point.clockAt}
+                                    td
+                                            span #{point.temperature}
+                                    td
+                                            span #{point.humidity}
+                                    td
+                                        figure(class="image")
+                                            img(src=`http://openweathermap.org/img/wn/${point.icon}.png `, alt="Image", width="50", height="50")
+                                    td
+                                            if point.status === 'SAFE'
+                                                span(style='color: green;') SAFE
+                                            else
+                                                span(style='color: red; font-weight: bold;') DANGER
+                                    td
+                                        button(style='background-color: red;', onclick=`deletePoint('${point.id}', '${point.status}', '${route.id}')`).btn.btn-primary Delete
 
-        h1.display-5.m-b-2 The Map
-        #pointMap
+    h1.display-5.m-b-2 The Map
+    #pointMap
 
-        //--------->MAP<----------
-        script.
-                const map_pointers = !{map_points};
-                const mymap = L.map('pointMap').setView([0, 0], 6);
-                const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-                const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-                const tiles = L.tileLayer(tileUrl, {attribution});
-                tiles.addTo(mymap);
-                // Making a marker with a custom icon
+    //--------->MAP<----------
+    script.
+            const map_pointers = !{map_points};
+            const mymap = L.map('pointMap').setView([0, 0], 6);
+            const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+            const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            const tiles = L.tileLayer(tileUrl, {attribution});
+            tiles.addTo(mymap);
+            // Making a marker with a custom icon
 
-                //let marker = L.marker([0, 0]).addTo(mymap);
-                var pathCoords = [];
+            //let marker = L.marker([0, 0]).addTo(mymap);
+            var pathCoords = [];
 
-                for (var i = 0; i < map_pointers.length; i++) {
-                    let url_icon = "http://openweathermap.org/img/wn/" + map_pointers[i].icon + ".png";
-                    let html_status = '<span style="color: red; font-weight: bold;"> DANGER';
-                    if(map_pointers[i].status === 'SAFE') {
-                        html_status = '<span style="color: green;"> SAFE';
-                    }
-                    let marker = L.marker([map_pointers[i].coordinate_x, map_pointers[i].coordinate_y], {
-                        icon: new L.DivIcon({
-                            className: 'my-div-icon',
-                            iconSize: null,
-                            html: '<img class="my-div-image" src=' + url_icon +'>' +
-                                '<span class="my-div-span">'+ map_pointers[i].temperature + ' °C</span><br>' +
-                                '<span class="my-div-span">'+ map_pointers[i].humidity + ' %</span><br>' +
-                                 html_status,
-                            iconSize: [50, 55],
-                            iconAnchor: [20, 20]
-                        })
-
-
-
-
-                    }).addTo(mymap);
-                    pathCoords.push([map_pointers[i].coordinate_x, map_pointers[i].coordinate_y]);
+            for (var i = 0; i < map_pointers.length; i++) {
+                let url_icon = "http://openweathermap.org/img/wn/" + map_pointers[i].icon + ".png";
+                let html_status = '<span style="color: red; font-weight: bold;"> DANGER';
+                if(map_pointers[i].status === 'SAFE') {
+                    html_status = '<span style="color: green;"> SAFE';
                 }
-                var pathLine = L.polyline(pathCoords).addTo(mymap);
+                let marker = L.marker([map_pointers[i].coordinate_x, map_pointers[i].coordinate_y], {
+                    icon: new L.DivIcon({
+                        className: 'my-div-icon',
+                        iconSize: null,
+                        html: '<img class="my-div-image" src=' + url_icon +'>' +
+                            '<span class="my-div-span">'+ map_pointers[i].temperature + ' °C</span><br>' +
+                            '<span class="my-div-span">'+ map_pointers[i].humidity + ' %</span><br>' +
+                             html_status,
+                        iconSize: [50, 55],
+                        iconAnchor: [20, 20]
+                    })
 
-        //---------->Check Input<----------
-        script.
-            var el_up_x = document.getElementById("GFG_UP_X");
-            var el_down_x = document.getElementById("GFG_DOWN_X");
-            var el_up_y = document.getElementById("GFG_UP_Y");
-            var el_down_y = document.getElementById("GFG_DOWN_Y");
-            function isValid(el, evnt) {
-                var charC = (evnt.which) ? evnt.which : evnt.keyCode;
-                if (charC == 46) {
-                    if (el.value.indexOf('.') === -1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    if (charC > 31 && (charC < 48 || charC > 57))
-                        return false;
-                }
-                return true;
+
+
+
+                }).addTo(mymap);
+                pathCoords.push([map_pointers[i].coordinate_x, map_pointers[i].coordinate_y]);
             }
-            function GFG_X(t, evnt) {
-                var a = isValid(t, evnt);
-                if (a) {
-                    el_down_x.innerHTML = "Typed Valid Character.";
-                } else {
-                    el_down_x.innerHTML = "Typed Invalid Character.";
-                }
-                return a;
-            }
-            function GFG_Y(t, evnt) {
-                var a = isValid(t, evnt);
-                if (a) {
-                    el_down_y.innerHTML = "Typed Valid Character.";
-                } else {
-                    el_down_y.innerHTML = "Typed Invalid Character.";
-                }
-                return a;
-            }
+            var pathLine = L.polyline(pathCoords).addTo(mymap);
 
-        include ../common/footer.pug
-        +footer()
-        script(src='/javascripts/points.js')
+    //---------->Check Input<----------
+    script.
+        var el_up_x = document.getElementById("GFG_UP_X");
+        var el_down_x = document.getElementById("GFG_DOWN_X");
+        var el_up_y = document.getElementById("GFG_UP_Y");
+        var el_down_y = document.getElementById("GFG_DOWN_Y");
+        function isValid(el, evnt) {
+            var charC = (evnt.which) ? evnt.which : evnt.keyCode;
+            if (charC == 46) {
+                if (el.value.indexOf('.') === -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (charC > 31 && (charC < 48 || charC > 57))
+                    return false;
+            }
+            return true;
+        }
+        function GFG_X(t, evnt) {
+            var a = isValid(t, evnt);
+            if (a) {
+                el_down_x.innerHTML = "Typed Valid Character.";
+            } else {
+                el_down_x.innerHTML = "Typed Invalid Character.";
+            }
+            return a;
+        }
+        function GFG_Y(t, evnt) {
+            var a = isValid(t, evnt);
+            if (a) {
+                el_down_y.innerHTML = "Typed Valid Character.";
+            } else {
+                el_down_y.innerHTML = "Typed Invalid Character.";
+            }
+            return a;
+        }
+
+    include ../common/footer.pug
+    +footer()
+    script(src='/javascripts/points.js')
